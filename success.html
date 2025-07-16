@@ -5,31 +5,178 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Success</title>
   <style>
-    body {
-      font-family: 'Figtree', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #e9fbe9;
-      color: green;
-      text-align: center;
+    *{
+      margin: 0;
+      padding: 0;
+      border: 0;
+      box-sizing: border-box;
+      font: inherit;
     }
 
     h1 {
-      font-size: 36px;
+      font-family: 'Goldman', sans-serif;
+      font-size: 32px;
       margin-bottom: 20px;
+      font-size: 40px;
+      font-weight: 600;
+      text-align: center;
     }
 
-    p {
-      font-size: 20px;
+    .predict{
+      color: #4A90E2;
+    }
+
+    .content{
+      background: #fff;
+      height: 100%;
+      width: 100%;
+      max-width: 528px;
+      /*padding: 46px 0;*/
+    }
+
+    .right{
+      flex: 1;
+      position: fixed;
+      top: 0;
+      height: 100dvh;
+      width: 50vw;
+      right: 0;
+    }
+
+    .left{
+      background-color: #fff; 
+      height: 100dvh;
+      /*max-height: 100dvh;*/
+      /*overflow-y: scroll;*/
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      margin-right: 50vw;
+    }
+
+    .image {
+      width: 100%; 
+      height: auto;
+      max-height: 100dvh;
+    }
+
+    .content{
+      background: #fff;
+      height: 100%;
+      width: 100%;
+      max-width: 528px;
+      /*padding: 46px 0;*/
+    }
+
+    #wrapper1{
+      margin: 84px auto 0 auto;
+      margin-bottom: 159px;
+      max-width: 439px;
+      height: 342px;
+      padding: 42px 63px;
+      border: 15px;
+      border-radius: 20px;
+      box-shadow: 0px 20px 30px 0px #BCBCBC4D;
+    }
+
+    h4{
+      font-family: "inter", sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 100%;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    p{
+      font-family: "figtree", sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: 0;
+      line-height: 100%;
+      text-align: center;
+      margin-top: 16px;
+      height: 38px;
+      width: 313px;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+
+    a{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      width: 100%;
+      height: 50px;
+      border-radius: 40px;
+      border: 1px solid #4A90E2;
+      color: #fff;
+      background-color: #4A90E2;
+    }
+
+    .result{
+      font-family: "figtree", sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      height: 19px;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .positive{
+      font-family: "figtree", sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: #000;
+    }
+
+    @media screen and (max-width: 970px){
+      .right{
+        display: none;
+      }
+
+      .left{
+        flex: 1 1 100%;
+        margin-right: 0;
+        padding: 0 30px;
+      }
+
+      .content{
+        max-width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div>
-    <h1>🎉 Congratulation! Congratulation! Congratulation!</h1>
-    <p>Thank you! Your information has been submitted successfully.</p>
+    <div style="display: flex; flex-direction: row;">
+    <div class="left">
+      <div class="content">
+        <div id="wrapper1">
+          <h1>🎉 Welcome!</h1>
+          <div id="wrapper2">
+            <h4 id="feelings">Dear,<br><span class="predict" id="usernameDisplay"></span></h4>
+            <p class="analysis">Thank you! Your information has been submitted successfully.</p>
+            <br>
+          </div>
+          <div>
+            <a href="index.html">Go back</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <img src="images/black-happiness.avif" alt="Side Image" style="width: 100%; height: 100%; object-fit: cover;" />
+    </div>
   </div>
+
+  <script type="text/javascript">
+    
+    const data = JSON.parse(localStorage.getItem('livelyStonesUser'));
+    if (data) {
+      document.getElementById('usernameDisplay').textContent = `
+        ${data.firstName} ${data.middleName} ${data.lastName}
+      `;
+    }
+  </script>
 </body>
 </html>

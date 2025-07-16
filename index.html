@@ -37,6 +37,7 @@
       padding: 40px 30px;
       border-radius: 15px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      display: block;
     }
 
     h1 {
@@ -84,7 +85,10 @@
       cursor: pointer;
     }
 
-    .submit {
+     button{
+      display: block;
+      text-align: center;
+      text-decoration: none;
       width: 100%;
       padding: 12px;
       background-color: #4a90e2;
@@ -142,33 +146,33 @@
       <form id="userForm">
         <div class="form-group">
           <label for="profilePicture">Upload Your Picture</label>
-          <input type="file" id="profilePicture" accept="image/*" />
+          <input type="file" id="profilePicture" accept="image/*" required />
           <img id="previewImage" />
         </div>
 
         <div class="form-group">
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" placeholder="David" required />
+          <input type="text" id="firstName" placeholder="Emmanuella" required />
         </div>
 
         <div class="form-group">
           <label for="middleName">Middle Name</label>
-          <input type="text" id="middleName" placeholder="Anibe" />
+          <input type="text" id="middleName" placeholder="Ufedo" />
         </div>
 
         <div class="form-group">
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" placeholder="Daniel" required />
+          <input type="text" id="lastName" placeholder="Nathaniel" required />
         </div>
 
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="davidanibe007@gmail.com" required />
+          <input type="email" id="email" placeholder="livinstone@gmail.com" required />
         </div>
 
         <div class="form-group">
           <label for="num">Mobile Number</label>
-          <input type="number" id="num" placeholder="08155180000" required />
+          <input type="text" id="num" placeholder="08155180000" required />
         </div>
 
         <div class="form-group">
@@ -186,7 +190,7 @@
 
         <div class="form-group">
           <label for="dob">Date of Birth</label>
-          <input type="text" id="dob" placeholder="e.g. 17th March, 2000" required />
+          <input type="text" id="dob" placeholder="e.g. 01 April, 1998" required />
         </div>
 
         <button type="submit" class="submit">Submit</button>
@@ -198,84 +202,6 @@
   </div>
 </div>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCyk1kR0ZjssURolf3d2F8aRLdU5SJfZ8g",
-    authDomain: "lively-stones.firebaseapp.com",
-    projectId: "lively-stones",
-    storageBucket: "lively-stones.appspot.com",
-    messagingSenderId: "864199525426",
-    appId: "1:864199525426:web:6ad87e3721ea7fca59282b",
-    measurementId: "G-WGFZJ2E4F7"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  const storage = firebase.storage();
-
-  const pictureInput = document.getElementById("profilePicture");
-  const preview = document.getElementById("previewImage");
-
-  pictureInput.addEventListener("change", function () {
-    const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        preview.src = e.target.result;
-        preview.style.display = "block";
-      };
-      reader.readAsDataURL(file);
-    } else {
-      preview.style.display = "none";
-    }
-  });
-
-  document.getElementById("userForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    try {
-      const firstName = document.getElementById("firstName").value.trim();
-      const middleName = document.getElementById("middleName").value.trim();
-      const lastName = document.getElementById("lastName").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const number = document.getElementById("num").value.trim();
-      const gender = document.querySelector('input[name="gender"]:checked')?.value;
-      const occupation = document.getElementById("occupation").value.trim();
-      const dob = document.getElementById("dob").value.trim();
-      const file = pictureInput.files[0];
-
-      if (!firstName || !lastName || !gender || !occupation || !email || !dob) {
-        alert("Please fill in all required fields.");
-        return;
-      }
-
-      let imageUrl = "";
-      if (file) {
-        const storageRef = storage.ref(`profilePictures/${Date.now()}_${file.name}`);
-        await storageRef.put(file);
-        imageUrl = await storageRef.getDownloadURL();
-      }
-
-      await db.collection("users").add({
-        firstName, middleName, lastName,
-        email, number, gender,
-        occupation, dob, imageUrl,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      window.location.href = "success.html";
-
-    } catch (error) {
-      console.error("Submission error:", error);
-      alert("Something went wrong. Please try again.");
-    }
-  });
-</script>
-
+<script src="livelystones.js"></script>
 </body>
 </html>
